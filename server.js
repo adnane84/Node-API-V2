@@ -3,6 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const productRoute = require('./routes/productRoute')
 const errorMiddleware = require('./middleware/errorMiddleware')
+const cors = require('cors')
 
 // https://www.youtube.com/watch?v=v_pcW65DGu8   check the video again for access start from 35 minutes 
 
@@ -11,10 +12,15 @@ const app = express()
 const PORT = process.env.PORT || 3000
 
 const MONGO_URL = process.env.MONGO_URL
+const FRONTEND = process.env.FRONTEND
+
+var corsOptions = {
+  origin: FRONTEND,
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 
-
-
+app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
